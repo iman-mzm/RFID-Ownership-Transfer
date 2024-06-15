@@ -32,6 +32,7 @@ The project is organized into the following directories:
 cd RFID-Ownership-Transfer/py/
 python Protocol.py
 python Privacy_violation.py
-
-
+```
+```
 [1] Bi, Y., Fan, K., Zhang, K., Bai, Y., Li, H., & Yang, Y. (2023). A secure and efficient two-party protocol enabling ownership transfer of RFID objects. IEEE Internet of Things Journal.
+```
