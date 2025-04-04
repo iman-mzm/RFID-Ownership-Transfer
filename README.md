@@ -89,7 +89,7 @@ python disclosure.py
 
 ### Violation of the New Owner's Privacy
 
-The **Violation of the New Owner's Privacy** attack targets the privacy of the new owner in an ownership transfer protocol. It ensures that the adversary, including the previous owner, cannot infer or track the private information of the new owner. However, as described in~\cite{BiFZBLY23}, the old owner is believed to be unable to track the tag or guess the new shared keys. Contrary to this, we present an attack where the previous owner can fully recover the session key and updated parameters, compromising the new owner's privacy.
+The **Violation of the New Owner's Privacy** attack targets the privacy of the new owner in an ownership transfer protocol. It ensures that the adversary, including the previous owner, cannot infer or track the private information of the new owner. However, as described in [1], the old owner is believed to be unable to track the tag or guess the new shared keys. Contrary to this, we present an attack where the previous owner can fully recover the session key and updated parameters, compromising the new owner's privacy.
 
 #### Attack Scenario:
 
