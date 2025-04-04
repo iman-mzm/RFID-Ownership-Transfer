@@ -85,6 +85,7 @@ The attacker compares the values of $B'$ and $B'_i$ for each session, using diff
 ```bash
 cd RFID-Ownership-Transfer/py/
 python disclosure.py
-
+```
+```bash
 [1] Bi, Y., Fan, K., Zhang, K., Bai, Y., Li, H., & Yang, Y. (2023). A secure and efficient two-party protocol enabling ownership transfer of RFID objects. IEEE Internet of Things Journal.
 ```
