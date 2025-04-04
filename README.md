@@ -38,11 +38,17 @@ Additionally, you can explore and simulate specific attacks, such as the **Desyn
 
 ### Desynchronization Attack
 
-A **Desynchronization attack** is a targeted attempt to disrupt the synchronization of critical elements in the protocol. This includes cryptographic keys and other important parameters that ensure the protocol operates securely. By causing misalignment, this attack can compromise the protocol's effectiveness and security.
+A **Desynchronization attack** involves an adversary intentionally interfering with the synchronization of key cryptographic components used in the IoT authentication protocol, such as cryptographic keys and associated values. This type of attack disrupts the regular update process of these keys and other critical elements, which undermines the integrity and security of the protocol.
 
 #### Attack Scenario:
 
-In this attack, the attacker intercepts and blocks messages from the new owner that are crucial for updating the tag's parameters. Specifically, the attacker blocks the messages **M** and **N** sent by the new owner, preventing the tag from receiving these updates. As a result, the tag does not update its parameters, and the old owner remains unaware of the new owner's actions.
+In this attack, an adversary intercepts and blocks critical messages (specifically $M$ and $N$) during the ownership transfer process. Since the tag and the old owner rely on the successful reception of these messages to update their values, blocking them results in a misalignment between the new and old owners' parameters, leaving the system vulnerable to impersonation.
+
+1. The new owner updates their keys and the tag’s ID as per the protocol. However, the attacker blocks the transmission of the update messages ($M$ and $N$) sent to the tag, preventing it from receiving the new values.
+
+2. The tag and old owner remain with outdated values because they were not updated with the new messages.
+
+3. The new owner (now under the assumption that the update was successful) proceeds with actions that should have been verified by the tag and the old owner. However, since the tag and old owner have not received the update, they cannot authenticate the new owner.
 
 #### Impact of the Attack:
 
@@ -52,7 +58,7 @@ In this attack, the attacker intercepts and blocks messages from the new owner t
 
 #### Steps to Simulate the Desynchronization Attack:
 
-1. **Run the protocol simulation** by following the instructions in the previous section.
+1. Clone the repository and navigate to the **py** folder.
 2. **Execute the Desynchronization attack** by running the `desynchronization.py` script.
 
 ```bash
@@ -60,11 +66,20 @@ cd RFID-Ownership-Transfer/py/
 python desynchronization.py
 
 ```
+The following steps illustrate how the attack unfolds in the simulation:
+   1. The protocol initiates by generating random values for the identifiers ($IDSx$, $IDn$) and cryptographic keys ($K1$, $K2$, $K3$, etc.).
+   2. During the simulation, the attacker blocks the transmission of the crucial messages ($M$ and $N$) from the new owner to the tag.
+   3. The tag and old owner retain their outdated values while the new owner continues with actions based on incorrect assumptions.
+
+The output will display the internal secret values of each entity involved in the protocol after the desynchronization attack, showing that the tag and old owner retain their original values while the new owner proceeds without proper authentication from the tag.
+
 ### Full Secret Disclosure Attack
 
 A **Full Secret Disclosure attack** allows an attacker to recover a secret value of length $l$ by conducting $l+1$ sessions with the tag. The attacker can be anyone, including the old owner $R_C$. By exploiting this attack, the attacker will be able to fully recover the session key $K_T$ shared between the new owner and the tag after executing $l+1$ sessions.
 
 #### Attack Scenario:
+
+In this attack, the adversary can recover the secret session key $K_T$, which is shared between the new owner and the tag, by conducting $l+1$ sessions with the tag. The attacker can be any participant, including the old owner $R_C$. After executing the attack, the attacker will fully disclose the secret key $K_T$.
 
 The attack begins with the tag receiving a "hello" message and the value $A$ calculated by $R_N$. The tag calculates $B' = f_x(r'_1 \oplus IDS_x, K_T)$ and sends $B'$ along with its identifier to the new owner. The attacker can exploit the first three steps of the protocol to recover the session key $K_T$.
 
@@ -80,33 +95,46 @@ The attacker compares the values of $B'$ and $B'_i$ for each session, using diff
 
 #### Steps to Simulate the Full Secret Disclosure Attack:
 
-1. **Run the protocol simulation** by following the instructions in the previous section.
+1. Clone the repository and navigate to the **py** folder.
 2. **Execute the Full Secret Disclosure attack** by running the `disclosure.py` script.
 
 ```bash
 cd RFID-Ownership-Transfer/py/
 python disclosure.py
 ```
+The repository contains the Python code for simulating the attack in the disclosure.py file. The following steps are performed in the code:
+   1. Initialization Phase: Random values for $IDS_x$, $ID_n$, $K_T$, and other parameters are generated.
+   2. Attack Phase: The attacker generates a random value $A$, sends it to the tag, and performs $l$ sessions to extract each bit of the key $K_T$.
+   3. Key Recovery: The attacker compares the received $B'_i$ values and recovers the $K_T$ key bit by bit.
+
+The output will display the recovered session key $K_T$ and compare it with the original key. The attack is considered successful if $K_T == KT_R$.
 
 ### Violation of the New Owner's Privacy
 
-The **Violation of the New Owner's Privacy** attack targets the privacy of the new owner in an ownership transfer protocol. It ensures that the adversary, including the previous owner, cannot infer or track the private information of the new owner. However, as described in [1], the old owner is believed to be unable to track the tag or guess the new shared keys. Contrary to this, we present an attack where the previous owner can fully recover the session key and updated parameters, compromising the new owner's privacy.
+In ownership transfer protocols, the privacy of both the previous and new owners must be carefully protected. It is essential that neither the adversary nor the previous owner can deduce any private information about the new owner. However, in this attack, we demonstrate that the previous owner (or attacker) can compromise the new owner's privacy by recovering the new owner's session key and tracking the tag.
 
 #### Attack Scenario:
 
-In this attack, the previous owner, after recovering the session key $K_T$ in the **Full Secret Disclosure attack**, can eavesdrop on messages **$G \oplus I$** and **$M$** that the new owner sends to the tag. By doing so, the previous owner can extract the random values $r_4$ and $r_5$ and use these to compute the new tag ID and the updated keys for the new owner.
+In this attack, the previous owner leverages the Disclosure Attack (described in a previous section) to recover the session key $K_T$ shared between the tag and the new owner. After obtaining $K_T$, the attacker can eavesdrop on the messages $G \oplus I$ and $M$ sent by the new owner to the tag during the protocol.
 
-After obtaining $K_T$, $r_4$, and $r_5$, the attacker (previous owner) can compute the new tag ID and updated keys using the relationships derived from the protocol.
+With the knowledge of $K_T$, $r_4$, and $r_5$, the attacker can compute the new tag ID and the updated keys of the new owner. The attacker can extract the random values $r_4$ and $r_5$ from the eavesdropped messages and use the relationships in the protocol to compute the new tag ID and updated session keys for the new owner.
 
 #### Steps to Simulate the Privacy Violation Attack:
 
-1. **Run the protocol simulation** by following the instructions in the previous section.
+1. Clone the repository and navigate to the **py** folder.
 2. **Execute the Violation of the New Owner's Privacy attack** by running the `Privacy_violation.py` script.
 
 ```bash
 cd RFID-Ownership-Transfer/py/
 python Privacy_violation.py
 ```
+The following steps are performed in the code:
+   1. Initialization Phase: Random values for $IDS_x$, $ID_n$, $K_T$, and other parameters are generated.
+   2. Main Protocol: The protocol proceeds with the standard ownership transfer steps, and the attacker monitors the messages exchanged between the new owner and the tag.
+   3. Key and ID Extraction: The attacker uses the homomorphic property of the permutation function to extract the random values $r_4$ and $r_5$ and computes the updated values for the tag ID and the new owner's keys.
+
+The output will display the recovered new tag ID and the updated keys for the new owner. It will also confirm whether the attacker was able to successfully compromise the new owner's privacy.
+
 ```bash
 [1] Bi, Y., Fan, K., Zhang, K., Bai, Y., Li, H., & Yang, Y. (2023). A secure and efficient two-party protocol enabling ownership transfer of RFID objects. IEEE Internet of Things Journal.
 ```
