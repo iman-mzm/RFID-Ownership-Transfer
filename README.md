@@ -67,7 +67,8 @@ A **Full Secret Disclosure attack** allows an attacker to recover a secret value
 
 The attack begins with the tag receiving a "hello" message and the value $A$ calculated by $R_N$. The tag calculates $B' = f_x(r'_1 \oplus IDS_x, K_T)$ and sends $B'$ along with its identifier to the new owner. The attacker can exploit the first three steps of the protocol to recover the session key $K_T$.
 
-Since the tag is passive, the attacker can start a session with the same secret session parameters. The attacker generates a random value $A$, sends it along with a "hello" message to the tag, and the tag responds with $B'$. By adding the value $A$ to the standard basis vector $e_i$, the attacker generates $A_i = A \oplus e_i$ and sends it to the tag. The tag computes $B'_i = f_x(r'_{1,i} \oplus IDS_x, K_T)$ and sends $B'_i$ back.
+Since the tag is passive, the attacker can start a session with the same secret session parameters. The attacker generates a random value $A$, sends it along with a "hello" message to the tag, and the tag responds with $B'$. By adding the value $A$ to the standard basis vector $e_i$, the attacker generates $A_i = A \oplus e_i$ and sends it to the tag. The tag computes $B'_i = f_x(r'_{1,i} \oplus IDS_x, K_T)$
+ and sends $B'_i$ back.
 
 The attacker compares the values of $B'$ and $B'_i$ for each session, using differences in the values to deduce each bit of $K_T$.
 
