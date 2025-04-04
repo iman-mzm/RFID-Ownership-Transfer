@@ -1,6 +1,8 @@
 # Evaluating Security Pitfalls of Ultra-Lightweight IoT Authentication
 This repository contains simulations of the protocol, analysis, and attacks performed on the proposed protocol in paper [1].
 
+![out2 00_00_00-00_05_48](https://github.com/user-attachments/assets/b1e62f5f-91c7-4cd9-831d-871adab3a73c)
+
 ## Project Structure
 
 The project is organized into the following directories:
@@ -20,7 +22,6 @@ The project is organized into the following directories:
      ```bash
      python Protocol.py
      ```
-![out2 00_00_00-00_01_09](https://github.com/user-attachments/assets/4bbf9d74-b026-4dce-a624-9aca4e1fc6d4)
 
 3. **Run Specific Attacks:**
    - To run an attack simulation, execute the corresponding script. For example, to run the privacy violation attack:
