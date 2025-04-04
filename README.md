@@ -33,6 +33,7 @@ cd RFID-Ownership-Transfer/py/
 python Protocol.py
 python Privacy_violation.py
 ```
+Additionally, you can explore and simulate specific attacks, such as the **Desynchronization**, **Full Secret Disclosure**, and **Violation of the New Owner's Privacy**, all of which are detailed below, to analyze their impact on the protocol's security.
 
 ### Desynchronization Attack
 
