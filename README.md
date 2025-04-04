@@ -80,11 +80,11 @@ The attacker compares the values of $B'$ and $B'_i$ for each session, using diff
 #### Steps to Simulate the Full Secret Disclosure Attack:
 
 1. **Run the protocol simulation** by following the instructions in the previous section.
-2. **Execute the Full Secret Disclosure attack** by running the `full_secret_disclosure.py` script.
+2. **Execute the Full Secret Disclosure attack** by running the `disclosure.py` script.
 
 ```bash
 cd RFID-Ownership-Transfer/py/
-python full_secret_disclosure.py
+python disclosure.py
 
 [1] Bi, Y., Fan, K., Zhang, K., Bai, Y., Li, H., & Yang, Y. (2023). A secure and efficient two-party protocol enabling ownership transfer of RFID objects. IEEE Internet of Things Journal.
 ```
