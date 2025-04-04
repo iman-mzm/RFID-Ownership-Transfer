@@ -59,5 +59,32 @@ cd RFID-Ownership-Transfer/py/
 python desynchronization.py
 
 ```
+### Full Secret Disclosure Attack
+
+A **Full Secret Disclosure attack** allows an attacker to recover a secret value of length $l$ by conducting $l+1$ sessions with the tag. The attacker can be anyone, including the old owner $R_C$. By exploiting this attack, the attacker will be able to fully recover the session key $K_T$ shared between the new owner and the tag after executing $l+1$ sessions.
+
+#### Attack Scenario:
+
+The attack begins with the tag receiving a "hello" message and the value $A$ calculated by $R_N$. The tag calculates $B' = f_x(r'_1 \oplus IDS_x, K_T)$ and sends $B'$ along with its identifier to the new owner. The attacker can exploit the first three steps of the protocol to recover the session key $K_T$.
+
+Since the tag is passive, the attacker can start a session with the same secret session parameters. The attacker generates a random value $A$, sends it along with a "hello" message to the tag, and the tag responds with $B'$. By adding the value $A$ to the standard basis vector $e_i$, the attacker generates $A_i = A \oplus e_i$ and sends it to the tag. The tag computes $B'_i = f_x(r'_{1,i} \oplus IDS_x, K_T)$ and sends $B'_i$ back.
+
+The attacker compares the values of $B'$ and $B'_i$ for each session, using differences in the values to deduce each bit of $K_T$.
+
+#### Impact of the Attack:
+
+- The attacker can recover each bit of $K_T$ by performing $l+1$ sessions with the tag.
+- The attack takes advantage of a weakness in the permutation function, where small differences in $B'$ and $B'_i$ reveal information about the corresponding bit of the secret $K_T$.
+- After $l+1$ sessions, the attacker will know the entire value of $K_T$.
+
+#### Steps to Simulate the Full Secret Disclosure Attack:
+
+1. **Run the protocol simulation** by following the instructions in the previous section.
+2. **Execute the Full Secret Disclosure attack** by running the `full_secret_disclosure.py` script.
+
+```bash
+cd RFID-Ownership-Transfer/py/
+python full_secret_disclosure.py
+
 [1] Bi, Y., Fan, K., Zhang, K., Bai, Y., Li, H., & Yang, Y. (2023). A secure and efficient two-party protocol enabling ownership transfer of RFID objects. IEEE Internet of Things Journal.
 ```
