@@ -34,21 +34,21 @@ python Protocol.py
 python Privacy_violation.py
 ```
 
-## Desynchronization Attack
+### Desynchronization Attack
 
 A **Desynchronization attack** is a targeted attempt to disrupt the synchronization of critical elements in the protocol. This includes cryptographic keys and other important parameters that ensure the protocol operates securely. By causing misalignment, this attack can compromise the protocol's effectiveness and security.
 
-# Attack Scenario:
+#### Attack Scenario:
 
 In this attack, the attacker intercepts and blocks messages from the new owner that are crucial for updating the tag's parameters. Specifically, the attacker blocks the messages **M** and **N** sent by the new owner, preventing the tag from receiving these updates. As a result, the tag does not update its parameters, and the old owner remains unaware of the new owner's actions.
 
-# Impact of the Attack:
+#### Impact of the Attack:
 
 - The tag and the old owner do not update their values after the new owner has made changes.
 - This leads to desynchronization between the new owner's state and the tag's state.
 - The attacker can then manipulate the tag and the old owner by maintaining their old parameters, undermining the security of the protocol.
 
-### Steps to Simulate the Desynchronization Attack:
+#### Steps to Simulate the Desynchronization Attack:
 
 1. **Run the protocol simulation** by following the instructions in the previous section.
 2. **Execute the Desynchronization attack** by running the `desynchronization.py` script.
