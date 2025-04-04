@@ -1,6 +1,7 @@
 # Evaluating Security Pitfalls of Ultra-Lightweight IoT Authentication
 This repository contains simulations of the protocol, analysis, and attacks performed on the proposed protocol in paper [1].
-![Uploading out2 00_00_00-00_00_09.gif…]()
+
+![out2 00_00_00-00_00_09](https://github.com/user-attachments/assets/22493b30-6b7c-48f7-8bec-5862824c598b)
 
 ## Project Structure
 
