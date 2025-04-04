@@ -86,6 +86,26 @@ The attacker compares the values of $B'$ and $B'_i$ for each session, using diff
 cd RFID-Ownership-Transfer/py/
 python disclosure.py
 ```
+
+### Violation of the New Owner's Privacy
+
+The **Violation of the New Owner's Privacy** attack targets the privacy of the new owner in an ownership transfer protocol. It ensures that the adversary, including the previous owner, cannot infer or track the private information of the new owner. However, as described in~\cite{BiFZBLY23}, the old owner is believed to be unable to track the tag or guess the new shared keys. Contrary to this, we present an attack where the previous owner can fully recover the session key and updated parameters, compromising the new owner's privacy.
+
+#### Attack Scenario:
+
+In this attack, the previous owner, after recovering the session key $K_T$ in the **Full Secret Disclosure attack**, can eavesdrop on messages **$G \oplus I$** and **$M$** that the new owner sends to the tag. By doing so, the previous owner can extract the random values $r_4$ and $r_5$ and use these to compute the new tag ID and the updated keys for the new owner.
+
+After obtaining $K_T$, $r_4$, and $r_5$, the attacker (previous owner) can compute the new tag ID and updated keys using the relationships derived from the protocol.
+
+#### Steps to Simulate the Privacy Violation Attack:
+
+1. **Run the protocol simulation** by following the instructions in the previous section.
+2. **Execute the Violation of the New Owner's Privacy attack** by running the `Privacy_violation.py` script.
+
+```bash
+cd RFID-Ownership-Transfer/py/
+python Privacy_violation.py
+```
 ```bash
 [1] Bi, Y., Fan, K., Zhang, K., Bai, Y., Li, H., & Yang, Y. (2023). A secure and efficient two-party protocol enabling ownership transfer of RFID objects. IEEE Internet of Things Journal.
 ```
